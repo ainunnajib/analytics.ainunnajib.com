@@ -10,5 +10,5 @@ runtime: shiny
 
 # Selamat Datang!
 
-- [RAPBD Pemprov DKI Jakarta](./RAPBDDKIJakarta/)
+- [Word Cloud - RAPBD Pemprov DKI Jakarta](./RAPBDDKIJakarta/WordCloud/)
 
