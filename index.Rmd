@@ -1,14 +1,7 @@
 ---
-title: "Analytics - Ainun Najib .com"
-author: "Ainun Najib"
-date: "1 March 2015"
 output: html_document
 runtime: shiny
 ---
-
-# Welcome!
-
-# Selamat Datang!
 
 - [Word Cloud - RAPBD Pemprov DKI Jakarta](./RAPBDDKIJakarta/WordCloud/)
 
