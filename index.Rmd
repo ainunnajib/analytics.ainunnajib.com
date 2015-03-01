@@ -1,7 +1,0 @@
----
-output: html_document
-runtime: shiny
----
-
-- [Word Cloud - RAPBD Pemprov DKI Jakarta](./RAPBDDKIJakarta/WordCloud/)
-
