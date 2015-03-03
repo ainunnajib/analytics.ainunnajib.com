@@ -40,8 +40,8 @@ shinyServer(function(input, output) {
       paste('RAPBD', input$KomisiDPRD, input$SKPD, paste0(input$KodeRekening, '.csv'), sep='-') 
     },
     content = function(file) {
-      write.table(format(datasetInput(), scientific = FALSE, trim = TRUE, big.mark = "."), 
-                  file = file, sep = "|", quote = FALSE)
+      write.table(format(datasetInput(), scientific = FALSE, trim = TRUE, big.mark = "."),
+                  file = file, sep = ",", row.names = FALSE, quote = TRUE)
     }
   )
   
