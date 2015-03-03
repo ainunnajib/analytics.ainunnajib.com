@@ -25,6 +25,8 @@ shinyUI(
                            unique(as.character(mata.anggaran$KodeRekening))))
       )        
     ),
+    
+    fluidRow( downloadButton('downloadData', 'Download') ),
 
     fluidRow(
       dataTableOutput(outputId="table")
