@@ -10,8 +10,8 @@ lampiran3 <- data.table(lampiran3)
 
 lampiran3[ , Jumlah := gsub('\\.', '', Jumlah)]
 lampiran3[ , Jumlah := as.numeric(Jumlah)]
-lampiran3[ , Tipe := as.factor(Tipe)]
-lampiran3[ , SubTipe := as.factor(SubTipe)]
+#lampiran3[ , Tipe := as.factor(Tipe)]
+#lampiran3[ , SubTipe := as.factor(SubTipe)]
 lampiran3[ , PendapatanBelanja := as.factor(PendapatanBelanja)]
 lampiran3[ , UrusanPemerintahan := as.factor(UrusanPemerintahan)]
 lampiran3[ , Organisasi := as.factor(Organisasi)]
@@ -28,7 +28,7 @@ rapbd <- lampiran3[ , .(KodeUP = UrusanPemerintahan,
                         SubTipe,
                         Uraian,
                         Jumlah)]
-rapbd[ , KodeRekening := factor(KodeRekening)]
+#rapbd[ , KodeRekening := factor(KodeRekening)]
 rapbd[Kategori == 4, Kategori := "PENDAPATAN DAERAH"]
 rapbd[Kategori == 5, Kategori := "BELANJA DAERAH"]
 rapbd[Kategori == 6, Kategori := "PEMBIAYAAN DAERAH"]
@@ -39,19 +39,46 @@ refprogram <- rapbd[Kategori == "" & nchar(as.character(KodeRekening)) > 12,
 refprogram[ , n := 1:.N, by = KodeRekening]
 refprogram[ , KodeRekening := paste(KodeRekening, n)]
 
-anggaran <- rapbd[Kategori == "BELANJA DAERAH" & !is.na(Jumlah)]
-anggaran[ , n := 1:.N, by = .(KodeRekening, Tipe, SubTipe)]
-anggaran[ , KodeRekening := paste(KodeRekening, n)]
+anggaran <- rapbd[Kategori == "BELANJA DAERAH" & SubTipe != "" & !is.na(Jumlah)]
+#anggaran[ , n := 1:.N, by = .(KodeRekening, Tipe, SubTipe)]
+#anggaran[ , KodeRekening := paste(KodeRekening, n)]
+anggaran <- anggaran %>% arrange(KodeRekening)
+curRek <- ""
+curSubTipe <- 0
+n <- 1
+for(i in 1:nrow(anggaran)) {
+  if(curRek != anggaran[i]$KodeRekening) {
+    n <- 1
+    curRek <- anggaran[i]$KodeRekening
+  } else {
+    if(anggaran[i]$SubTipe <= curSubTipe) {
+      n <- n+1
+    }
+  }
+  anggaran[i]$KodeRekening <- paste(anggaran[i]$KodeRekening, n)
+  curSubTipe <- anggaran[i]$SubTipe
+}
+anggaran <- dcast(anggaran, 
+                  Kategori + KodeRekening + Tipe + SubTipe ~ Uraian, 
+                  sum, value.var = "Jumlah")
+colnames(anggaran) <- gsub(' ', '', colnames(anggaran))
+anggaran <- data.table(anggaran)
 
 anggaran <- merge(anggaran, refprogram, by = "KodeRekening")
 anggaran <- merge(anggaran, refkode, by = "KodeRekening")
 
-mata.anggaran <- anggaran[SubTipe != ""]
-mata.anggaran <- dcast(mata.anggaran, 
-                       UrusanPemerintahan + Organisasi + Kategori + KodeRekening + Program ~ Uraian, 
-                       sum, value.var = "Jumlah")
-colnames(mata.anggaran) <- gsub(' ', '', colnames(mata.anggaran))
-mata.anggaran <- data.table(mata.anggaran)
+mata.anggaran <- anggaran[SubTipe != "", 
+                          .(UrusanPemerintahan, Organisasi, Kategori, KodeRekening, Program,
+                            BELANJABARANGDANJASA, BELANJAMODAL, BELANJAPEGAWAI)]
+mata.anggaran <- mata.anggaran[ , .(BELANJABARANGDANJASA = sum(BELANJABARANGDANJASA),
+                                    BELANJAMODAL = sum(BELANJAMODAL),
+                                    BELANJAPEGAWAI = sum(BELANJAPEGAWAI)), 
+                               by = .(UrusanPemerintahan, Organisasi, Kategori, KodeRekening, Program)]
+#mata.anggaran <- dcast(mata.anggaran, 
+#                       UrusanPemerintahan + Organisasi + Kategori + KodeRekening + Program ~ Uraian, 
+#                       sum, value.var = "Jumlah")
+#colnames(mata.anggaran) <- gsub(' ', '', colnames(mata.anggaran))
+#mata.anggaran <- data.table(mata.anggaran)
 mata.anggaran[ , TOTAL := BELANJABARANGDANJASA + BELANJAMODAL + BELANJAPEGAWAI]
 
 mata.anggaran[ , KodeRekening := gsub('.{2}$', '', KodeRekening)]
