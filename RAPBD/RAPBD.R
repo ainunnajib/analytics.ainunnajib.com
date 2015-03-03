@@ -47,6 +47,8 @@ colnames(mata.anggaran) <- gsub(' ', '', colnames(mata.anggaran))
 mata.anggaran <- data.table(mata.anggaran)
 mata.anggaran[ , TOTAL := BELANJABARANGDANJASA + BELANJAMODAL + BELANJAPEGAWAI]
 
+mata.anggaran[ , KodeRekening := gsub('.{2}$', '', KodeRekening)]
+mata.anggaran[ , KodeRekening := as.factor(KodeRekening)]
 mata.anggaran[ , Organisasi := as.factor(Organisasi)]
 mata.anggaran[ , Kategori := as.factor(Kategori)]
 mata.anggaran[ , Program := as.factor(Program)]
