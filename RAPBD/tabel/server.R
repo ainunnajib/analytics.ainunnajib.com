@@ -32,7 +32,7 @@ shinyServer(function(input, output) {
   
   output$downloadData <- downloadHandler(
     filename = function() { 
-      paste('RAPBD', input$UrusanPemerintahan, input$Organisasi, input$KodeRekening, '.csv', sep='-') 
+      paste('RAPBD', input$UrusanPemerintahan, input$Organisasi, paste0(input$KodeRekening, '.csv'), sep='-') 
     },
     content = function(file) {
       write.table(format(datasetInput(), scientific = FALSE, trim = TRUE), 
