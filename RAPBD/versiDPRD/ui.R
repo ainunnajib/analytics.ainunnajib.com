@@ -3,6 +3,7 @@ load("rapbd.dprd.RData")
 
 shinyUI(
   fluidPage(
+    tags$head(includeScript("google-analytics.js")),
     titlePanel("Tabel Mata Anggaran Belanja Daerah RAPBD 2015 versi DPRD DKI Jakarta"),
 
     fluidRow(
