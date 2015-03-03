@@ -34,7 +34,9 @@ rapbd[Kategori == 5, Kategori := "BELANJA DAERAH"]
 rapbd[Kategori == 6, Kategori := "PEMBIAYAAN DAERAH"]
 rapbd[ , Kategori := factor(Kategori)]
 
-anggaran <- rapbd[!is.na(Jumlah)]
+anggaran <- rapbd[Kategori == "BELANJA DAERAH" & !is.na(Jumlah)]
+anggaran[ , n := 1:.N, by = .(KodeRekening, Tipe, SubTipe)]
+anggaran[ , KodeRekening := paste(KodeRekening, n)]
 anggaran <- merge(anggaran, refkode, by = "KodeRekening")
 
 mata.anggaran <- anggaran[SubTipe != ""]
