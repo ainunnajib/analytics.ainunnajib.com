@@ -36,7 +36,7 @@ shinyServer(function(input, output) {
     },
     content = function(file) {
       write.table(format(datasetInput(), scientific = FALSE, trim = TRUE), 
-                  file = "mata.anggaran.csv", sep = "|", quote = FALSE)
+                  file = file, sep = "|", quote = FALSE)
     }
   )
   
