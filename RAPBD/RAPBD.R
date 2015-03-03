@@ -54,5 +54,5 @@ mata.anggaran[ , Kategori := as.factor(Kategori)]
 mata.anggaran[ , Program := as.factor(Program)]
 
 save(mata.anggaran, file = "mata.anggaran.RData")
-write.table(format(mata.anggaran, scientific = FALSE, trim = TRUE), 
+write.table(format(mata.anggaran, scientific = FALSE, trim = TRUE, big.mark = "."), 
             file = "mata.anggaran.csv", sep = "|", quote = FALSE)
