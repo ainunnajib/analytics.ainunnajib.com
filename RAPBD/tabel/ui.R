@@ -14,7 +14,7 @@ shinyUI(
       ),
       column(4, 
              selectInput("Organisasi", 
-                         "Organisasi:", 
+                         "SKPD:", 
                          c("All", 
                            unique(as.character(mata.anggaran$Organisasi))))
       ),
