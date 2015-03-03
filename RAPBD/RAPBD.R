@@ -34,10 +34,15 @@ rapbd[Kategori == 5, Kategori := "BELANJA DAERAH"]
 rapbd[Kategori == 6, Kategori := "PEMBIAYAAN DAERAH"]
 rapbd[ , Kategori := factor(Kategori)]
 
-anggaran <- rapbd[Kategori == "BELANJA DAERAH" & !is.na(Jumlah)]
+anggaran <- rapbd[Kategori == "BELANJA DAERAH" & !is.na(Jumlah)] %>% 
+  arrange(KodeRekening, KodeUP, KodeOrganisasi, Tipe, SubTipe, Jumlah)
 anggaran[ , n := 1:.N, by = .(KodeRekening, Tipe, SubTipe)]
 anggaran[ , KodeRekening := paste(KodeRekening, n)]
 anggaran <- merge(anggaran, refkode, by = "KodeRekening")
+# manual fix...
+anggaran[as.character(KodeRekening) == "2.05 001 07 001 1" & 
+           Uraian %in% c("BELANJA MODAL", "BELANJA PEGAWAI"),
+         KodeRekening := "2.05 001 07 001 3"]
 
 mata.anggaran <- anggaran[SubTipe != ""]
 mata.anggaran <- dcast(mata.anggaran, 
