@@ -5,15 +5,15 @@ load("DPRD.Pemprov.RData")
 shinyServer(function(input, output) {
   output$table <- renderDataTable({
     data <- DPRD.Pemprov
-    data[ , DPRD.Pagu := format(DPRD.Pagu, scientific = FALSE, trim = FALSE, big.mark = ".", justify = "right")]
-    data[ , DPRD.Tambah := format(DPRD.Tambah, scientific = FALSE, trim = FALSE, big.mark = ".", justify = "right")]
-    data[ , DPRD.Kurang := format(DPRD.Kurang, scientific = FALSE, trim = FALSE, big.mark = ".", justify = "right")]
-    data[ , DPRD.HasilPembahasan := format(DPRD.HasilPembahasan, scientific = FALSE, trim = FALSE, big.mark = ".", justify = "right")]
+    data[ , DPRD.Pagu := format(DPRD.Pagu, scientific = FALSE, trim = FALSE, big.mark = ",", justify = "right")]
+    data[ , DPRD.Tambah := format(DPRD.Tambah, scientific = FALSE, trim = FALSE, big.mark = ",", justify = "right")]
+    data[ , DPRD.Kurang := format(DPRD.Kurang, scientific = FALSE, trim = FALSE, big.mark = ",", justify = "right")]
+    data[ , DPRD.HasilPembahasan := format(DPRD.HasilPembahasan, scientific = FALSE, trim = FALSE, big.mark = ",", justify = "right")]
 
-    data[ , Pemprov.BelanjaBarangDanJasa := format(Pemprov.BelanjaBarangDanJasa, scientific = FALSE, trim = FALSE, big.mark = ".", justify = "right")]
-    data[ , Pemprov.BelanjaModal := format(Pemprov.BelanjaModal, scientific = FALSE, trim = FALSE, big.mark = ".", justify = "right")]
-    data[ , Pemprov.BelanjaPegawai := format(Pemprov.BelanjaPegawai, scientific = FALSE, trim = FALSE, big.mark = ".", justify = "right")]
-    data[ , Pemprov.Total := format(Pemprov.Total, scientific = FALSE, trim = FALSE, big.mark = ".", justify = "right")]
+    data[ , Pemprov.BelanjaBarangDanJasa := format(Pemprov.BelanjaBarangDanJasa, scientific = FALSE, trim = FALSE, big.mark = ",", justify = "right")]
+    data[ , Pemprov.BelanjaModal := format(Pemprov.BelanjaModal, scientific = FALSE, trim = FALSE, big.mark = ",", justify = "right")]
+    data[ , Pemprov.BelanjaPegawai := format(Pemprov.BelanjaPegawai, scientific = FALSE, trim = FALSE, big.mark = ",", justify = "right")]
+    data[ , Pemprov.Total := format(Pemprov.Total, scientific = FALSE, trim = FALSE, big.mark = ",", justify = "right")]
     
     if (input$Komisi.DPRD != "All"){
       data <- data[data$Komisi.DPRD == input$Komisi.DPRD,]

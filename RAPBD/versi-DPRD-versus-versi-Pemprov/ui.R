@@ -38,7 +38,7 @@ shinyUI(
              selectInput("SKPD.Pemprov", 
                          "SKPD Pemprov:", 
                          c("All", 
-                           unique(as.character(DPRD.Pemprov$SKPD.Pemprov))))
+                           unique(as.character(DPRD.Pemprov$SKPD.Pemprov))), selected = "N/A")
       ),
       column(4, 
              downloadButton('downloadData', 'Download')
