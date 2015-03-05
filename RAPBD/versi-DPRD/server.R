@@ -5,10 +5,10 @@ load("rapbd.dprd.RData")
 shinyServer(function(input, output) {
   output$table <- renderDataTable({
     data <- rapbd.dprd
-    data[ , Pagu := paste("Rp.", format(Pagu, scientific = FALSE, width = 15, big.mark = "."))]
-    data[ , Tambah := paste("Rp.", format(Tambah, scientific = FALSE, width = 15, big.mark = "."))]
-    data[ , Kurang := paste("Rp.", format(Kurang, scientific = FALSE, width = 15, big.mark = "."))]
-    data[ , HasilPembahasan := paste("Rp.", format(HasilPembahasan, scientific = FALSE, width = 15, big.mark = "."))]
+    data[ , Pagu := format(Pagu, scientific = FALSE, width = 15, big.mark = ".")]
+    data[ , Tambah := format(Tambah, scientific = FALSE, width = 15, big.mark = ".")]
+    data[ , Kurang := format(Kurang, scientific = FALSE, width = 15, big.mark = ".")]
+    data[ , HasilPembahasan := format(HasilPembahasan, scientific = FALSE, width = 15, big.mark = ".")]
     if (input$KomisiDPRD != "All"){
       data <- data[data$KomisiDPRD == input$KomisiDPRD,]
     }
