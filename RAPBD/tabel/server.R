@@ -5,10 +5,10 @@ load("mata.anggaran.RData")
 shinyServer(function(input, output) {
   output$table <- renderDataTable({
     data <- mata.anggaran
-    data[ , BELANJABARANGDANJASA := format(BELANJABARANGDANJASA, scientific = FALSE, trim = FALSE, big.mark = ".", justify = "right")]
-    data[ , BELANJAMODAL := format(BELANJAMODAL, scientific = FALSE, trim = FALSE, big.mark = ".", justify = "right")]
-    data[ , BELANJAPEGAWAI := format(BELANJAPEGAWAI, scientific = FALSE, trim = FALSE, big.mark = ".", justify = "right")]
-    data[ , TOTAL := format(TOTAL, scientific = FALSE, trim = FALSE, big.mark = ".", justify = "right")]
+    data[ , BELANJABARANGDANJASA := format(BELANJABARANGDANJASA, scientific = FALSE, width = 15, trim = FALSE, big.mark = ".", justify = "right")]
+    data[ , BELANJAMODAL := format(BELANJAMODAL, scientific = FALSE, width = 15, trim = FALSE, big.mark = ".", justify = "right")]
+    data[ , BELANJAPEGAWAI := format(BELANJAPEGAWAI, scientific = FALSE, width = 15, trim = FALSE, big.mark = ".", justify = "right")]
+    data[ , TOTAL := format(TOTAL, scientific = FALSE, width = 15, trim = FALSE, big.mark = ".", justify = "right")]
     if (input$UrusanPemerintahan != "All"){
       data <- data[data$UrusanPemerintahan == input$UrusanPemerintahan,]
     }
