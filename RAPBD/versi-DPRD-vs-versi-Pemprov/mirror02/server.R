@@ -5,15 +5,15 @@ load("DPRD.Pemprov.RData")
 shinyServer(function(input, output) {
   output$table <- renderDataTable({
     data <- DPRD.Pemprov
-    data[ , DPRD.Pagu := format(DPRD.Pagu, scientific = FALSE, trim = FALSE, big.mark = ",", justify = "right")]
-    data[ , DPRD.Tambah := format(DPRD.Tambah, scientific = FALSE, trim = FALSE, big.mark = ",", justify = "right")]
-    data[ , DPRD.Kurang := format(DPRD.Kurang, scientific = FALSE, trim = FALSE, big.mark = ",", justify = "right")]
-    data[ , DPRD.HasilPembahasan := format(DPRD.HasilPembahasan, scientific = FALSE, trim = FALSE, big.mark = ",", justify = "right")]
+    data[ , DPRD.Pagu := paste("Rp.", format(DPRD.Pagu, scientific = FALSE, width = 15, big.mark = "."))]
+    data[ , DPRD.Tambah := paste("Rp.", format(DPRD.Tambah, scientific = FALSE, width = 15, big.mark = "."))]
+    data[ , DPRD.Kurang := paste("Rp.", format(DPRD.Kurang, scientific = FALSE, width = 15, big.mark = "."))]
+    data[ , DPRD.HasilPembahasan := paste("Rp.", format(DPRD.HasilPembahasan, scientific = FALSE, width = 15, big.mark = "."))]
 
-    data[ , Pemprov.BelanjaBarangDanJasa := format(Pemprov.BelanjaBarangDanJasa, scientific = FALSE, trim = FALSE, big.mark = ",", justify = "right")]
-    data[ , Pemprov.BelanjaModal := format(Pemprov.BelanjaModal, scientific = FALSE, trim = FALSE, big.mark = ",", justify = "right")]
-    data[ , Pemprov.BelanjaPegawai := format(Pemprov.BelanjaPegawai, scientific = FALSE, trim = FALSE, big.mark = ",", justify = "right")]
-    data[ , Pemprov.Total := format(Pemprov.Total, scientific = FALSE, trim = FALSE, big.mark = ",", justify = "right")]
+    data[ , Pemprov.BelanjaBarangDanJasa := paste("Rp.", format(Pemprov.BelanjaBarangDanJasa, scientific = FALSE, width = 15, big.mark = "."))]
+    data[ , Pemprov.BelanjaModal := paste("Rp.", format(Pemprov.BelanjaModal, scientific = FALSE, width = 15, big.mark = "."))]
+    data[ , Pemprov.BelanjaPegawai := paste("Rp.", format(Pemprov.BelanjaPegawai, scientific = FALSE, width = 15, big.mark = "."))]
+    data[ , Pemprov.Total := paste("Rp.", format(Pemprov.Total, scientific = FALSE, width = 15, big.mark = "."))]
     
     if (input$Komisi.DPRD != "All"){
       data <- data[data$Komisi.DPRD == input$Komisi.DPRD,]
@@ -33,9 +33,11 @@ shinyServer(function(input, output) {
     }
     
     data
-  }, options = list(
-    columnDefs = list(list(targets = c(5, 6, 7, 8, 9, 10, 11, 12), type = "num-fmt"))
-  ))
+  }
+  #, options = list(
+  #  columnDefs = list(list(targets = c(5, 6, 7, 8, 9, 10, 11, 12), type = "num-fmt"))
+  #)
+  )
   
   datasetInput <- reactive({
     data <- DPRD.Pemprov
