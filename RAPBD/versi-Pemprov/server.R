@@ -19,9 +19,11 @@ shinyServer(function(input, output) {
       data <- data[data$KodeRekening == input$KodeRekening,]
     }
     data
-  }, options = list(
-    columnDefs = list(list(targets = c(5, 6, 7, 8), type = "num-fmt"))
-  ))
+  }
+  #, options = list(
+  #  columnDefs = list(list(targets = c(5, 6, 7, 8), type = "num-fmt"))
+  #)
+  )
   
   datasetInput <- reactive({
     data <- mata.anggaran
