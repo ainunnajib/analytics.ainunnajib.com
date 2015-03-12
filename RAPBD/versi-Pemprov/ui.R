@@ -1,3 +1,4 @@
+Sys.setlocale('LC_CTYPE', 'en_US.UTF-8')
 library(shiny)
 load("mata.anggaran.RData")
 
