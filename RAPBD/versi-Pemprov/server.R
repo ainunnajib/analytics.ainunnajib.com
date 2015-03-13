@@ -53,12 +53,12 @@ shinyServer(function(input, output) {
     }
   )
   
-  output$debug <- renderText({
-    data <- mata.anggaran
-    data[ , BELANJABARANGDANJASA := format(BELANJABARANGDANJASA, scientific = FALSE, width = 15, trim = FALSE, big.mark = ".", justify = "right")]
-    data[ , BELANJAMODAL := format(BELANJAMODAL, scientific = FALSE, width = 15, trim = FALSE, big.mark = ".", justify = "right")]
-    data[ , BELANJAPEGAWAI := format(BELANJAPEGAWAI, scientific = FALSE, width = 15, trim = FALSE, big.mark = ".", justify = "right")]
-    data[ , TOTAL := format(TOTAL, scientific = FALSE, width = 15, trim = FALSE, big.mark = ".", justify = "right")]
-    as.character(str(data))
-  })
+#  output$debug <- renderText({
+#    data <- mata.anggaran
+#    data[ , BELANJABARANGDANJASA := format(BELANJABARANGDANJASA, scientific = FALSE, width = 15, trim = FALSE, big.mark = ".", justify = "right")]
+#    data[ , BELANJAMODAL := format(BELANJAMODAL, scientific = FALSE, width = 15, trim = FALSE, big.mark = ".", justify = "right")]
+#    data[ , BELANJAPEGAWAI := format(BELANJAPEGAWAI, scientific = FALSE, width = 15, trim = FALSE, big.mark = ".", justify = "right")]
+#    data[ , TOTAL := format(TOTAL, scientific = FALSE, width = 15, trim = FALSE, big.mark = ".", justify = "right")]
+#    as.character(str(data))
+#  })
 })
