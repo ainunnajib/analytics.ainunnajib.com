@@ -20,6 +20,8 @@ shinyServer(function(input, output) {
     if (input$KodeRekening != "All"){
       data <- data[data$KodeRekening == input$KodeRekening,]
     }
+    save(data, file = "test.RData")
+    write.table(data, "test.dat")
     data
   }
   #, options = list(
@@ -57,6 +59,6 @@ shinyServer(function(input, output) {
     data[ , BELANJAMODAL := format(BELANJAMODAL, scientific = FALSE, width = 15, trim = FALSE, big.mark = ".", justify = "right")]
     data[ , BELANJAPEGAWAI := format(BELANJAPEGAWAI, scientific = FALSE, width = 15, trim = FALSE, big.mark = ".", justify = "right")]
     data[ , TOTAL := format(TOTAL, scientific = FALSE, width = 15, trim = FALSE, big.mark = ".", justify = "right")]
-    as.character(head(data, 100))
+    as.character(str(data))
   })
 })
