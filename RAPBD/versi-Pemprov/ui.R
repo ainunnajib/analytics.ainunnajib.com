@@ -32,6 +32,10 @@ shinyUI(
 
     fluidRow(
       dataTableOutput(outputId="table")
-    )    
+    ),
+    
+    fluidRow(
+      textOutput(outputId = "debug")
+    )
   )  
 )
